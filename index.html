@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flexentra — Uw partner in technische detachering</title>
+<meta name="description" content="Flexentra is gespecialiseerd in de detachering van technisch personeel. Loodgieters, elektriciens, installateurs, monteurs, lassers en engineers direct beschikbaar.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ===== RESET & BASE ===== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:'Inter',sans-serif;color:#1a1a2e;background:#fff;line-height:1.6;overflow-x:hidden}
+a{text-decoration:none;color:inherit;transition:color .2s}
+ul{list-style:none}
+img{max-width:100%;display:block}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+
+/* ===== CSS VARIABLES ===== */
+:root{
+  --blue:#0B2545;
+  --blue-light:#133B6B;
+  --orange:#E85D26;
+  --orange-hover:#d14e1b;
+  --light:#F5F7FA;
+  --gray:#6B7280;
+  --gray-light:#E5E7EB;
+  --white:#FFFFFF;
+  --shadow:0 4px 24px rgba(11,37,69,.08);
+  --shadow-lg:0 12px 40px rgba(11,37,69,.12);
+  --radius:12px;
+  --radius-lg:20px;
+  --transition:all .3s cubic-bezier(.4,0,.2,1);
+}
+
+/* ===== UTILITIES ===== */
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+.section-label{display:inline-flex;align-items:center;gap:8px;font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--orange);margin-bottom:12px}
+.section-label::before{content:'';width:24px;height:2px;background:var(--orange);display:inline-block}
+.section-title{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;color:var(--blue);line-height:1.2;margin-bottom:16px}
+.section-subtitle{font-size:1.05rem;color:var(--gray);max-width:600px;line-height:1.7}
+
+/* ===== SCROLL ANIMATIONS ===== */
+.fade-up{opacity:0;transform:translateY(30px);transition:opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1)}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+.fade-up.delay-1{transition-delay:.1s}
+.fade-up.delay-2{transition-delay:.2s}
+.fade-up.delay-3{transition-delay:.3s}
+.fade-up.delay-4{transition-delay:.4s}
+.fade-up.delay-5{transition-delay:.5s}
+
+/* ===== NAVBAR ===== */
+.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;padding:16px 0;transition:var(--transition)}
+.navbar.scrolled{background:rgba(255,255,255,.97);backdrop-filter:blur(12px);box-shadow:0 1px 20px rgba(11,37,69,.08);padding:10px 0}
+.navbar .container{display:flex;align-items:center;justify-content:space-between}
+.nav-logo{display:flex;align-items:center;gap:10px;z-index:1001}
+.nav-logo svg{height:36px;width:auto}
+.nav-links{display:flex;align-items:center;gap:32px}
+.nav-links a{font-size:.9rem;font-weight:500;color:var(--white);transition:color .2s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--orange);transition:width .3s}
+.nav-links a:hover::after{width:100%}
+.navbar.scrolled .nav-links a{color:var(--blue)}
+.nav-links a:hover{color:var(--orange)}
+.nav-cta{background:var(--orange);color:var(--white)!important;padding:10px 24px;border-radius:999px;font-weight:600;font-size:.9rem;transition:var(--transition)}
+.nav-cta::after{display:none!important}
+.nav-cta:hover{background:var(--orange-hover);transform:translateY(-1px);box-shadow:0 4px 16px rgba(232,93,38,.3)}
+.hamburger{display:none;flex-direction:column;gap:5px;z-index:1001;padding:4px}
+.hamburger span{display:block;width:24px;height:2px;background:var(--white);transition:var(--transition);border-radius:2px}
+.navbar.scrolled .hamburger span{background:var(--blue)}
+.hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.active span:nth-child(2){opacity:0}
+.hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+
+/* ===== HERO ===== */
+.hero{min-height:100vh;background:linear-gradient(165deg,#061A33 0%,var(--blue) 40%,var(--blue-light) 100%);display:flex;align-items:center;padding:120px 0 80px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-50%;right:-20%;width:800px;height:800px;background:radial-gradient(circle,rgba(232,93,38,.08) 0%,transparent 70%);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:120px;background:linear-gradient(to top,rgba(245,247,250,.05),transparent);pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.hero-content{position:relative;z-index:1}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(232,93,38,.12);border:1px solid rgba(232,93,38,.2);padding:8px 16px;border-radius:999px;font-size:.8rem;font-weight:600;color:var(--orange);margin-bottom:24px}
+.hero-badge svg{width:16px;height:16px}
+.hero h1{font-size:clamp(2.2rem,5vw,3.4rem);font-weight:800;color:var(--white);line-height:1.15;margin-bottom:20px;letter-spacing:-.02em}
+.hero h1 span{color:var(--orange)}
+.hero-sub{font-size:1.1rem;color:rgba(255,255,255,.7);line-height:1.7;margin-bottom:36px;max-width:520px}
+.hero-buttons{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:48px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:999px;font-weight:600;font-size:.95rem;transition:var(--transition)}
+.btn-primary{background:var(--orange);color:var(--white)}
+.btn-primary:hover{background:var(--orange-hover);transform:translateY(-2px);box-shadow:0 8px 24px rgba(232,93,38,.35)}
+.btn-outline{border:1.5px solid rgba(255,255,255,.3);color:var(--white)}
+.btn-outline:hover{border-color:var(--white);background:rgba(255,255,255,.08);transform:translateY(-2px)}
+.btn svg{width:18px;height:18px}
+
+/* Hero Stats */
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.stat-card{background:rgba(255,255,255,.06);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:24px;text-align:center;transition:var(--transition)}
+.stat-card:hover{background:rgba(255,255,255,.1);border-color:rgba(232,93,38,.3);transform:translateY(-2px)}
+.stat-number{font-size:2rem;font-weight:800;color:var(--orange);display:block;line-height:1.2}
+.stat-label{font-size:.82rem;color:rgba(255,255,255,.6);margin-top:4px}
+
+/* Hero Visual */
+.hero-visual{position:relative;display:flex;align-items:center;justify-content:center}
+.hero-image-container{position:relative;width:100%;aspect-ratio:4/3;background:linear-gradient(135deg,rgba(255,255,255,.05),rgba(255,255,255,.02));border-radius:var(--radius-lg);border:1px solid rgba(255,255,255,.06);overflow:hidden;display:flex;align-items:center;justify-content:center}
+.hero-image-container svg{width:60%;opacity:.15}
+.hero-floating-card{position:absolute;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-radius:var(--radius);padding:16px 20px;box-shadow:var(--shadow-lg);display:flex;align-items:center;gap:12px;animation:float 3s ease-in-out infinite}
+.hero-floating-card.card-1{top:12%;right:-10%;animation-delay:0s}
+.hero-floating-card.card-2{bottom:15%;left:-8%;animation-delay:1.5s}
+.floating-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.floating-icon svg{width:20px;height:20px}
+.floating-icon.orange{background:rgba(232,93,38,.1)}
+.floating-icon.orange svg{color:var(--orange)}
+.floating-icon.blue{background:rgba(11,37,69,.08)}
+.floating-icon.blue svg{color:var(--blue)}
+.floating-text .f-title{font-size:.82rem;font-weight:700;color:var(--blue)}
+.floating-text .f-sub{font-size:.72rem;color:var(--gray)}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+/* ===== OVER ONS ===== */
+.over-ons{padding:100px 0;background:var(--white)}
+.over-ons-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.over-ons-image{position:relative}
+.over-ons-image-box{width:100%;aspect-ratio:4/3;background:linear-gradient(135deg,var(--light),#E2E8F0);border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.over-ons-image-box svg{width:40%;opacity:.25}
+.experience-badge{position:absolute;bottom:-16px;right:-16px;background:var(--orange);color:var(--white);padding:20px 24px;border-radius:var(--radius);text-align:center;box-shadow:0 8px 30px rgba(232,93,38,.3)}
+.experience-badge .badge-num{font-size:2.2rem;font-weight:800;line-height:1;display:block}
+.experience-badge .badge-text{font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-top:2px}
+.over-ons-text p{color:var(--gray);line-height:1.8;margin-bottom:16px;font-size:1rem}
+.over-ons-text p:first-of-type{font-size:1.1rem;color:#374151}
+.check-list{margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.check-list li{display:flex;align-items:center;gap:10px;font-size:.9rem;font-weight:500;color:var(--blue)}
+.check-list li svg{width:20px;height:20px;color:var(--orange);flex-shrink:0}
+
+/* ===== VALUES STRIP ===== */
+.values-strip{background:var(--blue);padding:48px 0;overflow:hidden}
+.values-grid{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.value-item{display:flex;flex-direction:column;align-items:center;gap:10px;padding:20px 16px;flex:1;min-width:120px;text-align:center;transition:var(--transition);border-radius:var(--radius)}
+.value-item:hover{background:rgba(255,255,255,.06)}
+.value-item svg{width:28px;height:28px;color:var(--orange)}
+.value-item span{font-size:.78rem;font-weight:600;color:rgba(255,255,255,.85);text-transform:uppercase;letter-spacing:.5px}
+
+/* ===== DIENSTEN ===== */
+.diensten{padding:100px 0;background:var(--light)}
+.diensten-header{text-align:center;margin-bottom:56px}
+.diensten-header .section-subtitle{margin:0 auto}
+.diensten-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.dienst-card{background:var(--white);border-radius:var(--radius);padding:36px 28px;position:relative;overflow:hidden;border:1px solid var(--gray-light);transition:var(--transition)}
+.dienst-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--orange);transform:scaleX(0);transition:transform .4s cubic-bezier(.4,0,.2,1);transform-origin:left}
+.dienst-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:transparent}
+.dienst-card:hover::before{transform:scaleX(1)}
+.dienst-icon{width:56px;height:56px;border-radius:14px;background:rgba(232,93,38,.08);display:flex;align-items:center;justify-content:center;margin-bottom:20px;transition:var(--transition)}
+.dienst-card:hover .dienst-icon{background:var(--orange)}
+.dienst-icon svg{width:26px;height:26px;color:var(--orange);transition:color .3s}
+.dienst-card:hover .dienst-icon svg{color:var(--white)}
+.dienst-card h3{font-size:1.15rem;font-weight:700;color:var(--blue);margin-bottom:10px}
+.dienst-card p{font-size:.9rem;color:var(--gray);line-height:1.7}
+.dienst-link{display:inline-flex;align-items:center;gap:6px;margin-top:16px;font-size:.85rem;font-weight:600;color:var(--orange);transition:gap .3s}
+.dienst-card:hover .dienst-link{gap:10px}
+.dienst-link svg{width:16px;height:16px}
+
+/* ===== SECTOREN ===== */
+.sectoren{padding:100px 0;background:var(--white)}
+.sectoren-header{text-align:center;margin-bottom:48px}
+.sectoren-header .section-subtitle{margin:0 auto}
+.sectoren-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:900px;margin:0 auto}
+.sector-tag{background:var(--light);border:1px solid var(--gray-light);border-radius:var(--radius);padding:20px 24px;text-align:center;font-weight:600;font-size:.95rem;color:var(--blue);transition:var(--transition);cursor:default}
+.sector-tag:hover{background:var(--blue);color:var(--white);border-color:var(--blue);transform:translateY(-2px);box-shadow:0 8px 24px rgba(11,37,69,.15)}
+
+/* ===== WAAROM FLEXENTRA ===== */
+.waarom{padding:100px 0;background:linear-gradient(165deg,#061A33,var(--blue) 60%,var(--blue-light))}
+.waarom-header{text-align:center;margin-bottom:56px}
+.waarom-header .section-label{color:var(--orange)}
+.waarom-header .section-title{color:var(--white)}
+.waarom-header .section-subtitle{color:rgba(255,255,255,.6);margin:0 auto}
+.waarom-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.waarom-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:36px 28px;transition:var(--transition);position:relative}
+.waarom-card:hover{background:rgba(255,255,255,.08);border-color:rgba(232,93,38,.3);transform:translateY(-4px)}
+.waarom-num{font-size:3rem;font-weight:800;color:rgba(232,93,38,.2);line-height:1;margin-bottom:16px}
+.waarom-card:hover .waarom-num{color:rgba(232,93,38,.4)}
+.waarom-card h3{font-size:1.1rem;font-weight:700;color:var(--white);margin-bottom:10px}
+.waarom-card p{font-size:.88rem;color:rgba(255,255,255,.55);line-height:1.7}
+
+/* ===== CTA SECTION ===== */
+.cta-section{padding:80px 0;background:var(--light)}
+.cta-box{background:linear-gradient(135deg,var(--blue),var(--blue-light));border-radius:var(--radius-lg);padding:64px;text-align:center;position:relative;overflow:hidden}
+.cta-box::before{content:'';position:absolute;top:-50%;right:-30%;width:500px;height:500px;background:radial-gradient(circle,rgba(232,93,38,.12),transparent 70%);pointer-events:none}
+.cta-box h2{font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:800;color:var(--white);margin-bottom:12px}
+.cta-box p{color:rgba(255,255,255,.65);font-size:1.05rem;margin-bottom:36px;max-width:500px;margin-left:auto;margin-right:auto}
+.cta-buttons{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;position:relative;z-index:1}
+.btn-phone{background:var(--orange);color:var(--white);padding:14px 32px;border-radius:999px;font-weight:600;display:inline-flex;align-items:center;gap:8px;transition:var(--transition)}
+.btn-phone:hover{background:var(--orange-hover);transform:translateY(-2px);box-shadow:0 8px 24px rgba(232,93,38,.35)}
+.btn-phone svg{width:18px;height:18px}
+.btn-email{border:1.5px solid rgba(255,255,255,.25);color:var(--white);padding:14px 32px;border-radius:999px;font-weight:600;display:inline-flex;align-items:center;gap:8px;transition:var(--transition)}
+.btn-email:hover{border-color:var(--white);background:rgba(255,255,255,.06);transform:translateY(-2px)}
+.btn-email svg{width:18px;height:18px}
+
+/* ===== FOOTER ===== */
+.footer{background:#061A33;padding:64px 0 0;color:rgba(255,255,255,.65)}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.2fr;gap:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.08)}
+.footer-brand .footer-logo{margin-bottom:16px}
+.footer-brand .footer-logo svg{height:30px}
+.footer-brand p{font-size:.88rem;line-height:1.7;margin-bottom:20px}
+.footer-social{display:flex;gap:12px}
+.footer-social a{width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;transition:var(--transition)}
+.footer-social a:hover{background:var(--orange)}
+.footer-social a svg{width:16px;height:16px;color:rgba(255,255,255,.7)}
+.footer-social a:hover svg{color:var(--white)}
+.footer h4{font-size:.9rem;font-weight:700;color:var(--white);margin-bottom:20px;text-transform:uppercase;letter-spacing:.5px}
+.footer ul li{margin-bottom:10px}
+.footer ul li a{font-size:.88rem;transition:color .2s}
+.footer ul li a:hover{color:var(--orange)}
+.footer-contact li{display:flex;align-items:flex-start;gap:10px;margin-bottom:14px;font-size:.88rem}
+.footer-contact li svg{width:18px;height:18px;color:var(--orange);flex-shrink:0;margin-top:2px}
+.footer-bottom{padding:24px 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.footer-bottom p{font-size:.8rem;color:rgba(255,255,255,.4)}
+.footer-bottom-links{display:flex;gap:24px}
+.footer-bottom-links a{font-size:.8rem;color:rgba(255,255,255,.4);transition:color .2s}
+.footer-bottom-links a:hover{color:var(--orange)}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:1024px){
+  .hero-grid{grid-template-columns:1fr;text-align:center}
+  .hero-sub{margin:0 auto 36px}
+  .hero-buttons{justify-content:center}
+  .hero-visual{display:none}
+  .over-ons-grid{grid-template-columns:1fr;gap:40px}
+  .over-ons-image{max-width:500px;margin:0 auto}
+  .diensten-grid{grid-template-columns:repeat(2,1fr)}
+  .waarom-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:768px){
+  .nav-links{position:fixed;top:0;left:0;right:0;bottom:0;background:var(--blue);flex-direction:column;justify-content:center;gap:24px;opacity:0;pointer-events:none;transition:opacity .3s}
+  .nav-links.open{opacity:1;pointer-events:all}
+  .nav-links a{color:var(--white)!important;font-size:1.2rem}
+  .hamburger{display:flex}
+  .hero{min-height:auto;padding:140px 0 80px}
+  .hero-stats{grid-template-columns:repeat(3,1fr);gap:12px}
+  .stat-card{padding:16px 10px}
+  .stat-number{font-size:1.5rem}
+  .stat-label{font-size:.72rem}
+  .diensten-grid{grid-template-columns:1fr}
+  .sectoren-grid{grid-template-columns:repeat(2,1fr)}
+  .waarom-grid{grid-template-columns:1fr}
+  .cta-box{padding:40px 24px}
+  .footer-grid{grid-template-columns:1fr}
+  .values-grid{justify-content:center}
+  .value-item{min-width:100px;padding:16px 10px}
+  .check-list{grid-template-columns:1fr}
+}
+@media(max-width:480px){
+  .hero-stats{grid-template-columns:1fr}
+  .sectoren-grid{grid-template-columns:1fr}
+  .hero-buttons{flex-direction:column;align-items:center}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar" id="navbar">
+  <div class="container">
+    <a href="#" class="nav-logo">
+      <svg viewBox="0 0 260 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="6" height="48" rx="2" fill="#fff"/>
+        <rect x="0" y="0" width="28" height="6" rx="2" fill="#fff"/>
+        <rect x="0" y="21" width="22" height="6" rx="2" fill="#fff"/>
+        <rect x="32" y="0" width="6" height="48" rx="2" fill="#E85D26"/>
+        <rect x="32" y="0" width="28" height="6" rx="2" fill="#E85D26"/>
+        <rect x="32" y="21" width="22" height="6" rx="2" fill="#E85D26"/>
+        <rect x="32" y="42" width="28" height="6" rx="2" fill="#E85D26"/>
+        <text x="74" y="37" font-family="Inter,sans-serif" font-size="32" font-weight="700" letter-spacing="-0.5">
+          <tspan fill="#fff">flex</tspan><tspan fill="#E85D26">entra</tspan>
+        </text>
+      </svg>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="#diensten">Diensten</a>
+      <a href="#over-ons">Over Ons</a>
+      <a href="#sectoren">Sectoren</a>
+      <a href="#waarom">Waarom Flexentra</a>
+      <a href="#contact" class="nav-cta">Contact</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-content">
+        <div class="hero-badge fade-up">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          Technische Detachering
+        </div>
+        <h1 class="fade-up delay-1">Uw partner in<br><span>technische detachering</span></h1>
+        <p class="hero-sub fade-up delay-2">Flexentra levert gekwalificeerd technisch personeel dat direct inzetbaar is. Van loodgieters en elektriciens tot projectleiders en engineers — wij vinden de juiste match.</p>
+        <div class="hero-buttons fade-up delay-3">
+          <a href="#contact" class="btn btn-primary">
+            Personeel aanvragen
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#diensten" class="btn btn-outline">
+            Onze diensten
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-card fade-up delay-2">
+            <span class="stat-number">500+</span>
+            <span class="stat-label">Professionals</span>
+          </div>
+          <div class="stat-card fade-up delay-3">
+            <span class="stat-number">98%</span>
+            <span class="stat-label">Tevredenheid</span>
+          </div>
+          <div class="stat-card fade-up delay-4">
+            <span class="stat-number">24u</span>
+            <span class="stat-label">Responstijd</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual fade-up delay-3">
+        <div class="hero-image-container">
+          <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="100" cy="100" r="80" stroke="rgba(255,255,255,.3)" stroke-width="1"/>
+            <circle cx="100" cy="100" r="60" stroke="rgba(255,255,255,.2)" stroke-width="1"/>
+            <path d="M100 40 L100 160 M40 100 L160 100" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
+            <circle cx="100" cy="100" r="8" fill="rgba(232,93,38,.5)"/>
+            <path d="M100 55 L105 65 L115 62 L112 72 L122 75 L115 82 L122 92 L112 90 L115 100 L105 95 L100 105 L95 95 L85 100 L88 90 L78 92 L85 82 L78 75 L88 72 L85 62 L95 65 Z" stroke="rgba(255,255,255,.25)" stroke-width="1.5" fill="none"/>
+          </svg>
+        </div>
+        <div class="hero-floating-card card-1">
+          <div class="floating-icon orange">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4-4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <div class="floating-text">
+            <div class="f-title">Nieuw personeel</div>
+            <div class="f-sub">12 professionals deze week</div>
+          </div>
+        </div>
+        <div class="hero-floating-card card-2">
+          <div class="floating-icon blue">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <div class="floating-text">
+            <div class="f-title">VCA Gecertificeerd</div>
+            <div class="f-sub">Volledig conform wet- en regelgeving</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== OVER ONS ===== -->
+<section class="over-ons" id="over-ons">
+  <div class="container">
+    <div class="over-ons-grid">
+      <div class="over-ons-image fade-up">
+        <div class="over-ons-image-box">
+          <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="40" y="60" width="120" height="100" rx="8" stroke="#0B2545" stroke-width="2" opacity=".3"/>
+            <rect x="55" y="45" width="90" height="70" rx="6" stroke="#0B2545" stroke-width="2" opacity=".2"/>
+            <circle cx="100" cy="110" r="25" stroke="#E85D26" stroke-width="2" opacity=".4"/>
+            <path d="M90 110 L97 117 L112 102" stroke="#E85D26" stroke-width="2.5" opacity=".5"/>
+          </svg>
+        </div>
+        <div class="experience-badge">
+          <span class="badge-num">10+</span>
+          <span class="badge-text">Jaar ervaring</span>
+        </div>
+      </div>
+      <div class="over-ons-text">
+        <span class="section-label fade-up">Over ons</span>
+        <h2 class="section-title fade-up delay-1">Gespecialiseerd in technische detachering</h2>
+        <p class="fade-up delay-2">Flexentra is een toonaangevende detacheerder van technisch personeel in Nederland. Wij verbinden vakbekwame technici met bedrijven die behoefte hebben aan betrouwbare, direct inzetbare medewerkers.</p>
+        <p class="fade-up delay-3">Met een uitgebreid netwerk van gekwalificeerde professionals en diepgaande kennis van de technische sector zorgen wij voor de perfecte match. Onze persoonlijke benadering en snelle schakeling maken het verschil.</p>
+        <ul class="check-list fade-up delay-4">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+            NEN 4400-1 gecertificeerd
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+            VCA** veiligheidscertificaat
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+            Landelijke dekking
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+            24/7 beschikbaar
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== VALUES STRIP ===== -->
+<section class="values-strip">
+  <div class="container">
+    <div class="values-grid">
+      <div class="value-item fade-up">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4-4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        <span>Partner</span>
+      </div>
+      <div class="value-item fade-up delay-1">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        <span>Resultaatgericht</span>
+      </div>
+      <div class="value-item fade-up delay-2">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span>Betrouwbaar</span>
+      </div>
+      <div class="value-item fade-up delay-3">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        <span>Snel schakelen</span>
+      </div>
+      <div class="value-item fade-up delay-4">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+        <span>Vakmanschap</span>
+      </div>
+      <div class="value-item fade-up delay-5">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        <span>Innovatief</span>
+      </div>
+      <div class="value-item fade-up delay-5">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <span>Gecertificeerd</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DIENSTEN ===== -->
+<section class="diensten" id="diensten">
+  <div class="container">
+    <div class="diensten-header">
+      <span class="section-label fade-up">Onze diensten</span>
+      <h2 class="section-title fade-up delay-1">Technisch personeel voor elke discipline</h2>
+      <p class="section-subtitle fade-up delay-2">Van installatie tot projectmanagement — wij leveren vakmensen die direct aan de slag kunnen bij uw organisatie.</p>
+    </div>
+    <div class="diensten-grid">
+      <!-- Loodgieters -->
+      <div class="dienst-card fade-up">
+        <div class="dienst-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 12H4a2 2 0 01-2-2V6a2 2 0 012-2h16a2 2 0 012 2v4a2 2 0 01-2 2h-2"/><path d="M6 12v6a2 2 0 002 2h8a2 2 0 002-2v-6"/><path d="M12 12v8"/><line x1="10" y1="8" x2="14" y2="8"/></svg>
+        </div>
+        <h3>Loodgieters</h3>
+        <p>Ervaren loodgieters voor sanitaire installaties, rioleringswerk en waterleiding systemen. Vakbekwaam en direct beschikbaar.</p>
+        <a href="#contact" class="dienst-link">Meer informatie <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <!-- Elektriciens -->
+      <div class="dienst-card fade-up delay-1">
+        <div class="dienst-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <h3>Elektriciens</h3>
+        <p>Gecertificeerde elektriciens (NEN 3140) voor sterkstroom, zwakstroom en industriële installaties. Veiligheid staat voorop.</p>
+        <a href="#contact" class="dienst-link">Meer informatie <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <!-- Installateurs W&E -->
+      <div class="dienst-card fade-up delay-2">
+        <div class="dienst-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <h3>Installateurs W&amp;E</h3>
+        <p>Allround installateurs voor werktuigbouwkundige en elektrotechnische installaties. Van klimaatsystemen tot warmtepompen.</p>
+        <a href="#contact" class="dienst-link">Meer informatie <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <!-- Monteurs & Constructie -->
+      <div class="dienst-card fade-up">
+        <div class="dienst-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+        </div>
+        <h3>Monteurs &amp; Constructie</h3>
+        <p>Constructiebankwerkers, lassers (MIG/MAG/TIG) en monteurs voor industriële en utilitaire projecten van elke omvang.</p>
+        <a href="#contact" class="dienst-link">Meer informatie <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <!-- Projectleiders & Engineers -->
+      <div class="dienst-card fade-up delay-1">
+        <div class="dienst-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <h3>Projectleiders &amp; Engineers</h3>
+        <p>Technische projectleiders, werkvoorbereiders en engineers voor de aansturing en engineering van complexe projecten.</p>
+        <a href="#contact" class="dienst-link">Meer informatie <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></a>
+      </div>
+      <!-- Servicemonteurs -->
+      <div class="dienst-card fade-up delay-2">
+        <div class="dienst-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        </div>
+        <h3>Servicemonteurs</h3>
+        <p>Allround servicemonteurs voor onderhoud, storingsdienst en reparatie. Snel ter plaatse, effectief en oplossingsgericht.</p>
+        <a href="#contact" class="dienst-link">Meer informatie <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTOREN ===== -->
+<section class="sectoren" id="sectoren">
+  <div class="container">
+    <div class="sectoren-header">
+      <span class="section-label fade-up">Sectoren</span>
+      <h2 class="section-title fade-up delay-1">Actief in diverse sectoren</h2>
+      <p class="section-subtitle fade-up delay-2">Wij leveren technisch personeel aan opdrachtgevers in uiteenlopende sectoren door heel Nederland.</p>
+    </div>
+    <div class="sectoren-grid">
+      <div class="sector-tag fade-up">Utiliteitsbouw</div>
+      <div class="sector-tag fade-up delay-1">Woningbouw</div>
+      <div class="sector-tag fade-up delay-2">Industrie</div>
+      <div class="sector-tag fade-up delay-3">Zorgsector</div>
+      <div class="sector-tag fade-up delay-1">Onderwijs</div>
+      <div class="sector-tag fade-up delay-2">Scheepsbouw</div>
+      <div class="sector-tag fade-up delay-3">Energiesector</div>
+      <div class="sector-tag fade-up delay-4">Overheid</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WAAROM FLEXENTRA ===== -->
+<section class="waarom" id="waarom">
+  <div class="container">
+    <div class="waarom-header">
+      <span class="section-label fade-up">Waarom Flexentra</span>
+      <h2 class="section-title fade-up delay-1">Wat ons onderscheidt</h2>
+      <p class="section-subtitle fade-up delay-2">Al meer dan 10 jaar de betrouwbare partner voor technische detachering in Nederland.</p>
+    </div>
+    <div class="waarom-grid">
+      <div class="waarom-card fade-up">
+        <div class="waarom-num">01</div>
+        <h3>Direct inzetbaar</h3>
+        <p>Onze professionals zijn direct beschikbaar en kunnen dezelfde dag nog starten. Geen weken wachten, maar direct resultaat.</p>
+      </div>
+      <div class="waarom-card fade-up delay-1">
+        <div class="waarom-num">02</div>
+        <h3>Volledig gecertificeerd</h3>
+        <p>Al onze vakmensen beschikken over de vereiste certificeringen: VCA, NEN 3140, F-gassen, STEK en branche-specifieke kwalificaties.</p>
+      </div>
+      <div class="waarom-card fade-up delay-2">
+        <div class="waarom-num">03</div>
+        <h3>Persoonlijke begeleiding</h3>
+        <p>Een vaste contactpersoon die uw bedrijf kent. Wij begeleiden zowel opdrachtgever als professional gedurende de hele opdracht.</p>
+      </div>
+      <div class="waarom-card fade-up delay-3">
+        <div class="waarom-num">04</div>
+        <h3>Flexibel &amp; schaalbaar</h3>
+        <p>Van één specialist tot een compleet team. Snel opschalen of afschalen op basis van uw projectbehoefte, zonder gedoe.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA SECTION ===== -->
+<section class="cta-section" id="contact">
+  <div class="container">
+    <div class="cta-box fade-up">
+      <h2>Technisch personeel nodig?</h2>
+      <p>Neem vandaag nog contact op en ontdek hoe Flexentra u kan helpen met gekwalificeerde vakmensen.</p>
+      <div class="cta-buttons">
+        <a href="tel:+31301234567" class="btn-phone">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+          030 - 123 4567
+        </a>
+        <a href="mailto:info@flexentra.nl" class="btn-email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          info@flexentra.nl
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <svg viewBox="0 0 260 48" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:30px;width:auto">
+            <rect x="0" y="0" width="6" height="48" rx="2" fill="#fff"/>
+            <rect x="0" y="0" width="28" height="6" rx="2" fill="#fff"/>
+            <rect x="0" y="21" width="22" height="6" rx="2" fill="#fff"/>
+            <rect x="32" y="0" width="6" height="48" rx="2" fill="#E85D26"/>
+            <rect x="32" y="0" width="28" height="6" rx="2" fill="#E85D26"/>
+            <rect x="32" y="21" width="22" height="6" rx="2" fill="#E85D26"/>
+            <rect x="32" y="42" width="28" height="6" rx="2" fill="#E85D26"/>
+            <text x="74" y="37" font-family="Inter,sans-serif" font-size="32" font-weight="700" letter-spacing="-0.5">
+              <tspan fill="#fff">flex</tspan><tspan fill="#E85D26">entra</tspan>
+            </text>
+          </svg>
+        </div>
+        <p>Flexentra is uw betrouwbare partner in technische detachering. Wij verbinden gekwalificeerde vakmensen met bedrijven door heel Nederland.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <a href="#" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678a6.162 6.162 0 100 12.324 6.162 6.162 0 100-12.324zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405a1.441 1.441 0 11-2.88 0 1.441 1.441 0 012.88 0z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h4>Diensten</h4>
+        <ul>
+          <li><a href="#diensten">Loodgieters</a></li>
+          <li><a href="#diensten">Elektriciens</a></li>
+          <li><a href="#diensten">Installateurs W&amp;E</a></li>
+          <li><a href="#diensten">Monteurs &amp; Constructie</a></li>
+          <li><a href="#diensten">Projectleiders &amp; Engineers</a></li>
+          <li><a href="#diensten">Servicemonteurs</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Bedrijf</h4>
+        <ul>
+          <li><a href="#over-ons">Over ons</a></li>
+          <li><a href="#waarom">Waarom Flexentra</a></li>
+          <li><a href="#sectoren">Sectoren</a></li>
+          <li><a href="#">Werken bij</a></li>
+          <li><a href="#">Nieuws</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul class="footer-contact">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Stationsplein 45<br>3511 CE Utrecht
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+            030 - 123 4567
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            info@flexentra.nl
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="M8 7h8M8 11h8M8 15h4"/></svg>
+            KvK: 12345678
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Flexentra B.V. Alle rechten voorbehouden.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Privacyverklaring</a>
+        <a href="#">Algemene voorwaarden</a>
+        <a href="#">Cookiebeleid</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Navbar scroll effect
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  if (window.pageYOffset > 50) {
+    navbar.classList.add('scrolled');
+  } else {
+    navbar.classList.remove('scrolled');
+  }
+}, { passive: true });
+
+// Hamburger menu toggle
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('active');
+  navLinks.classList.toggle('open');
+  document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
+});
+
+// Close mobile menu on link click
+navLinks.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    hamburger.classList.remove('active');
+    navLinks.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+});
+
+// Scroll animations with IntersectionObserver
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      const offset = navbar.offsetHeight + 16;
+      const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  });
+});
+</script>
+</body>
+</html>
